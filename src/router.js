@@ -19,8 +19,12 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      redirect: '/home/mine',
+      component: () => import('./views/home'),
       children: [
+        {
+          path: '/home',
+          redirect: '/home/substitute'
+        },
         {
           path: '/home/mine',
           name: 'mine',

@@ -4,8 +4,8 @@
 
     <van-cell-group>
       <van-field v-model="account" placeholder="请输入账号" label-align="left" label="账号" clearable required></van-field>
-      <van-field v-model="password" placeholder="请输入密码" label-align="left" label="密码" clearable required></van-field>
-      <van-field v-show="!isLogin" v-model="repassword" placeholder="请再次输入密码" label-align="left" label="重复密码" clearable required></van-field>
+      <van-field v-model="password" placeholder="请输入密码" label-align="left" label="密码" clearable required type="password"></van-field>
+      <van-field v-show="!isLogin" v-model="repassword" placeholder="请再次输入密码" label-align="left" label="重复密码" clearable required type="password"></van-field>
     </van-cell-group>
 
     <van-row class="box">
@@ -46,6 +46,9 @@ export default {
         password: this.password
       }).then(response => {
         console.log('登录成功返回', response)
+        if(response.code == 1) {
+          // this.$store.dispatch('setUser', )
+        }
       }).catch(err => {
         console.error('登录发生错误', err)
       })
@@ -59,6 +62,26 @@ export default {
       if(this.isLogin) {
         this.showLoginTip()
         this.login()
+      } else {
+        console.log("注册用户")
+        if(this.password != this.repassword) {
+          this.$toast.fail('两次输入密码不一致')
+          return
+        }
+
+        this.$http.register({
+          account: this.account,
+          password: this.password
+        }).then(res => {
+          console.log('注册成功返回', res.data)
+          this.$toast.clear()
+          // this.$store.dispath('setUser', res.data)
+          this.$router.push({
+            path: '/home'
+          })
+        }).catch(err => {
+          this.$toast.fail(err)
+        })
       }
     }
 

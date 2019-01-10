@@ -1,6 +1,6 @@
 export default {
   methods: 'post',
-  baseUrl: 'localhost:3000',
+  baseUrl: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
   },

@@ -7,7 +7,7 @@ import { Toast } from 'vant'
 export default function $axios(options) {
   return new Promise((resolve, reject) => {
     var instance = axios.create({
-      baseURL: 'localhost:3000',
+      baseURL: config.baseUrl,
       headers: config.headers,
       transformResponse: [function(data) {}]
     })
